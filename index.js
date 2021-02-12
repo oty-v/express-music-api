@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const ytdl = require("ytdl-core");
+const HttpsProxyAgent = require('https-proxy-agent');
 const app = express();
 const port = process.env.PORT || 5000;
-
+const proxy = 'http://37.57.15.43:33761';
+const agent = HttpsProxyAgent(proxy);
 ////////cors()
 
 app.use(cors());
@@ -17,9 +19,8 @@ app.listen(port, () => {
 
 app.get("/youtube", (req, res) => {
   const URL = req.query.URL;
-
   ytdl
-    .getInfo(URL)
+    .getInfo(URL,[agent])
     .then((info) => {
       const format = ytdl.filterFormats(info.formats, "audioonly");
 
