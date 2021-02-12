@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const ytdl = require("ytdl-core");
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 
 ////////cors()
 
@@ -14,9 +14,6 @@ app.listen(port, () => {
 });
 
 /////get request handel here get url for one video
-app.get("/", (req, res) => {
-  res.end('<h1>Home</h1>');
-});
 
 app.get("/youtube", (req, res) => {
   const URL = req.query.URL;
