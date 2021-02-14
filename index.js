@@ -19,6 +19,7 @@ app.get("/youtube", (req, res) => {
     .getInfo(URL)
     .then((info) => {
       const format = ytdl.filterFormats(info.formats, "audioonly");
+      res.set('Access-Control-Allow-Origin', '*');
       res.json(format[0].url);
     })
     .catch((err) => console.log(err));
