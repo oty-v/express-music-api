@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const ytdl = require("ytdl-core");
+const { getData, getPreview, getTracks } = require("spotify-url-info");
 const app = express();
 const port = process.env.PORT || 8080;
 ////////cors()
@@ -25,6 +26,16 @@ app.get("/youtube", (req, res) => {
       }else{
         res.json(format[0].url).end();
       }
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/spotify", (req, res) => {
+  getPreview(req.query.URL)
+    .then((info) => {
+      const data = {title: info.title, artist: info.artist};
+      res.set('Access-Control-Allow-Origin', '*');
+      res.json(data).end();
     })
     .catch((err) => console.log(err));
 });
