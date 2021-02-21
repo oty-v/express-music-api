@@ -30,8 +30,18 @@ app.get("/youtube", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.get("/spotify", (req, res) => {
+app.get("/spotify/track", (req, res) => {
   getPreview(req.query.URL)
+    .then((info) => {
+      const data = {title: info.title, artist: info.artist};
+      res.set('Access-Control-Allow-Origin', '*');
+      res.json(data).end();
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/spotify/playlist", (req, res) => {
+  getTracks(req.query.URL)
     .then((info) => {
       const data = {title: info.title, artist: info.artist};
       res.set('Access-Control-Allow-Origin', '*');
