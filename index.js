@@ -43,9 +43,8 @@ app.get("/spotify/track", (req, res) => {
 app.get("/spotify/playlist", (req, res) => {
   getTracks(req.query.URL)
     .then((info) => {
-      const data = {title: info.title, artist: info.artist};
       res.set('Access-Control-Allow-Origin', '*');
-      res.json(data).end();
+      res.json(info).end();
     })
     .catch((err) => console.log(err));
 });
